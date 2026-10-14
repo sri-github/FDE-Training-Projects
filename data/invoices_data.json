@@ -1,0 +1,26 @@
+[
+    {
+        "invoice_id": "INV_003",
+        "vendor": "ABC Ltd",
+        "amount": 1570.0,
+        "status": "string"
+    },
+    {
+        "invoice_id": "INV_001",
+        "vendor": "DEF Ltd",
+        "amount": 640.0,
+        "status": "string"
+    },
+    {
+        "invoice_id": "INV_001",
+        "vendor": "DEF Ltd",
+        "amount": 650.0,
+        "status": "string"
+    },
+    {
+        "invoice_id": "INV_002",
+        "vendor": "XYZ Ltd",
+        "amount": 1200.0,
+        "status": "string"
+    }
+]
