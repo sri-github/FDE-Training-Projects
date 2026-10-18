@@ -1,13 +1,9 @@
-from repository import get_high_risk_queue, create_intervention, update_intervention_status, get_all_interventions
+from .repository import *
 
-def fetch_intervention_queue(limit: int = 50):
-    encounters = get_high_risk_queue(limit)
-    return encounters
+def fetch_patient_queue(limit: int = 50):
+    return get_patient_queue(limit)
 
-def add_intervention(encounter_id: int, assigned_to: str, notes: str):
-    return create_intervention(encounter_id, assigned_to, notes)
-
-def fetch_intervention_queue(limit: int = 50):
+def fetch_high_risk_queue(limit: int = 50):
     return get_high_risk_queue(limit)
 
 def add_intervention(encounter_id: int, assigned_to: str, notes: str):

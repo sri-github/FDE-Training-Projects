@@ -1,15 +1,18 @@
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from typing import List, Optional
-from models import PatientEncounter, CareInterventionCreate, CareInterventionResponse
-from services import fetch_intervention_queue, add_intervention, list_interventions, modify_intervention_status
+# Change from: from Day4.refactor.repository import *
+from .repository import *
+from .services import *
+from .models import *
+from .database import *
 
 app = FastAPI(title="Diabetes Readmission Intervention Queue", version="1.0")
 
 @app.get("/api/queue", response_model=List[PatientEncounter])
 def get_queue(limit: int = 50):
     try:
-        return fetch_intervention_queue(limit)
+        return fetch_patient_queue(limit)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -30,7 +33,7 @@ class InterventionUpdate(BaseModel):
 @app.get("/api/queue", response_model=List[PatientEncounter])
 def get_queue(limit: int = 50):
     try:
-        return fetch_intervention_queue(limit)
+        return fetch_patient_queue(limit)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -64,6 +67,24 @@ def update_intervention(intervention_id: int, payload: InterventionUpdate):
 @app.get("/api/queue/high-risk", response_model=List[PatientEncounter])
 def get_high_risk_queue_endpoint(limit: int = 50):
     try:
-        return fetch_intervention_queue(limit)
+        return fetch_high_risk_queue(limit)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/api/queue/{encounter_id}")
+def get_encounter(encounter_id: int):
+    res = get_encounter_by_id(encounter_id)
+    if not res:
+        raise HTTPException(status_code=404, detail="Encounter not found")
+    return res
+
+@app.get("/api/interventions/{intervention_id}")
+def get_intervention(intervention_id: int):
+    res = get_intervention_by_id(intervention_id)
+    if not res:
+        raise HTTPException(status_code=404, detail="Intervention not found")
+    return res
+
+@app.get("/api/stats")
+def get_stats():
+    return get_queue_stats()
