@@ -1,0 +1,13 @@
+"use strict";
+const hospitalName = "City Hospital";
+let age = 45;
+const isEmergency = true;
+let balaceAmount = 1200000n;
+let patientName = null;
+let doctorName = undefined;
+console.log(hospitalName);
+console.log(age);
+console.log(isEmergency);
+console.log(typeof hospitalName);
+console.log(typeof age);
+console.log(typeof isEmergency);
