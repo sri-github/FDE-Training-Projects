@@ -6,6 +6,7 @@ from .repository import *
 from .services import *
 from .models import *
 from .database import *
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Diabetes Readmission Intervention Queue", version="1.0")
 
@@ -88,3 +89,11 @@ def get_intervention(intervention_id: int):
 @app.get("/api/stats")
 def get_stats():
     return get_queue_stats()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
